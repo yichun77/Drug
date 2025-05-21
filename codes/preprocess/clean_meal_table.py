@@ -8,7 +8,8 @@ dm = pd.read_excel(r'C:\Users\adayc\Desktop\code\Drug\DA_data\DA_daily_meal.xlsx
 
 # The food amount of DA163 was always 0, so we delete the DA163 data
 # And we also delete DA148 and DA196 because they have missing data
-excluded_ids = ['DA163', 'DA148', 'DA196']
+# Delete other samples with missing CGM data
+excluded_ids = ['DA20', 'DA65', 'DA69', 'DA129', 'DA130', 'DA155', 'DA163', 'DA148', 'DA193', 'DA196']
 dfc_new = dfc[~dfc['Sampleid'].isin(excluded_ids)]
 dm_new = dm[~dm['Sampleid'].isin(excluded_ids)]
 

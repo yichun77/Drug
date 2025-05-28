@@ -108,3 +108,28 @@ df_result = pd.DataFrame(results, columns=['PatientID', 'Date', 'Meal1', 'Meal2'
 df_result.to_csv(output_csv, index=False, encoding='utf-8-sig')
 
 print('finished', output_csv)
+
+
+
+
+# used_labels = set()
+# for meal_name, (start, end) in meal_ranges.items():
+#     in_range = centers[(centers >= start) & (centers <= end)]
+
+#     if not in_range.empty:
+#         # 从时间范围内挑一个最接近中心的点
+#         center_val = in_range.iloc[0]
+#         nearest_center_label = (centers - center_val).abs().idxmin()
+#     else:
+#         # 若无匹配的，则从未使用的中心中选一个与理想时间最近的
+#         ideal_time = (start + end) / 2
+#         available_centers = centers[~centers.index.isin(used_labels)]
+#         if available_centers.empty:
+#             # 所有都被用了，选最接近理想时间的中心（容错）
+#             nearest_center_label = (centers - ideal_time).abs().idxmin()
+#         else:
+#             nearest_center_label = (available_centers - ideal_time).abs().idxmin()
+
+#     used_labels.add(nearest_center_label)
+#     true_time = centers[nearest_center_label]
+#     selected_meals.append(f"{int(true_time)}:{int((true_time % 1)*60):02d}")

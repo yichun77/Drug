@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # path settings
 input_folder = r'C:\Users\adayc\Desktop\code\Drug\DA_data\CGM_id_only'
-output_csv = r'C:\Users\adayc\Desktop\code\Drug\reports\results\Tables\estimated_meal_times.csv'
+output_csv = r'C:\Users\adayc\Desktop\code\Drug\reports\results\tables\estimated_meal_times.csv'
 cluster_plot_dir = r'C:\Users\adayc\Desktop\code\Drug\reports\results\figures\meal_time'
 os.makedirs(cluster_plot_dir, exist_ok=True)
 
@@ -42,20 +42,27 @@ def estimate_meal_times(df_day):
     }
 
     selected_meals = []
+    used_labels = set()
     for meal_name, (start, end) in meal_ranges.items():
         in_range = centers[(centers >= start) & (centers <= end)]
+
         if not in_range.empty:
+            # find the center closest to the ideal time
             center_val = in_range.iloc[0]
-            nearest_peak = clustered_peaks.loc[(clustered_peaks['time'] >= start) & 
-                                               (clustered_peaks['time'] <= end)]
-            if not nearest_peak.empty:
-                nearest_center = nearest_peak.groupby('label')['time'].mean().sub(center_val).abs().idxmin()
-                true_time = centers[nearest_center]
-                selected_meals.append(f"{int(true_time)}:{int((true_time % 1)*60):02d}")
-            else:
-                selected_meals.append(None)
+            nearest_center_label = (centers - center_val).abs().idxmin()
         else:
-            selected_meals.append(None)
+            # if no centers in range, find the one closest to the ideal time
+            ideal_time = (start + end) / 2
+            available_centers = centers[~centers.index.isin(used_labels)]
+            if available_centers.empty:
+                # if all centers are used, fallback to the closest one
+                nearest_center_label = (centers - ideal_time).abs().idxmin()
+            else:
+                nearest_center_label = (available_centers - ideal_time).abs().idxmin()
+
+        used_labels.add(nearest_center_label)
+        true_time = centers[nearest_center_label]
+        selected_meals.append(f"{int(true_time)}:{int((true_time % 1)*60):02d}")
 
     # save cluster plot
     plt.figure(figsize=(6, 4))
@@ -103,33 +110,32 @@ for i in range(201):
         if len(est_meals) == 4:
             results.append([patient_id, date] + est_meals)
 
-# save CSV
 df_result = pd.DataFrame(results, columns=['PatientID', 'Date', 'Meal1', 'Meal2', 'Meal3', 'Meal4'])
+default_times = {
+    'Meal1': '08:00',
+    'Meal2': '12:00',
+    'Meal3': '17:00',
+    'Meal4': '20:00'
+}
+meal_ranges = {
+        'Meal1': (6, 9),
+        'Meal2': (11, 13),
+        'Meal3': (16, 18),
+        'Meal4': (19, 23)
+    }
+
+for i, row in df_result.iterrows():
+    for meal in ['Meal1', 'Meal2', 'Meal3', 'Meal4']:
+        time_str = row[meal]
+        if pd.isna(time_str):
+            df_result.at[i, meal] = default_times[meal]
+        else:
+            hour, minute = map(int, time_str.split(":"))
+            time_float = hour + minute / 60
+            start, end = meal_ranges[meal]
+            if not (start <= time_float <= end):
+                df_result.at[i, meal] = default_times[meal]
+
+
 df_result.to_csv(output_csv, index=False, encoding='utf-8-sig')
-
 print('finished', output_csv)
-
-
-
-
-# used_labels = set()
-# for meal_name, (start, end) in meal_ranges.items():
-#     in_range = centers[(centers >= start) & (centers <= end)]
-
-#     if not in_range.empty:
-#         # 从时间范围内挑一个最接近中心的点
-#         center_val = in_range.iloc[0]
-#         nearest_center_label = (centers - center_val).abs().idxmin()
-#     else:
-#         # 若无匹配的，则从未使用的中心中选一个与理想时间最近的
-#         ideal_time = (start + end) / 2
-#         available_centers = centers[~centers.index.isin(used_labels)]
-#         if available_centers.empty:
-#             # 所有都被用了，选最接近理想时间的中心（容错）
-#             nearest_center_label = (centers - ideal_time).abs().idxmin()
-#         else:
-#             nearest_center_label = (available_centers - ideal_time).abs().idxmin()
-
-#     used_labels.add(nearest_center_label)
-#     true_time = centers[nearest_center_label]
-#     selected_meals.append(f"{int(true_time)}:{int((true_time % 1)*60):02d}")

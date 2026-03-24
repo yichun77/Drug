@@ -1,45 +1,70 @@
-# 戒毒人群个性化营养与健康项目
+Personalized Nutrition and Health Program for Drug Rehabilitation Populations
+Data Overview
 
-## 数据基础信息
+Data Source: Zhejiang Provincial Drug Administration Bureau
 
-**数据来源**：浙江省戒毒管理局
+Time Points: September 2019, July 2020, December 2020
 
-**时间**：2019年9月、2020年7月、2020年12月
+Baseline On-site Survey Protocol
 
-**采集流程**：
+(Each rehabilitation center survey lasted two days)
 
-<img src="annex/datainfo.jpg" width="70%">
+Day 1
+1.1 Participant Recruitment
 
-**基线的现场调查流程**（每个戒毒所正式现场工作均为两天）：
+Inclusion Criteria:
 
-*第一天*：
+No severe organ failure
+Age between 18–65 years
+Duration of stay ≤ 3 months
+No severe infectious diseases (e.g., hepatitis A/B, HIV)
+No severe psychiatric disorders
+No cancer diagnosis
+1.2 Registration
 
-1.1 入组招募
+Participants queued to complete registration forms, including:
 
-纳入标准：1.无严重身体器官衰竭；2.年龄在18-65岁；3.入所时间不超过3个月；4.无严重传染病（甲肝，乙肝，艾滋病等）；5.无严重精神病；6.无癌症。
+Name
+ID
+National identification number
+Gender
 
-1.2 招募登记
+After registration, participants received:
 
-参与者依次排队填写登记表（包括姓名，ID，身份证号，性别等），领取号码牌及带有标签的唾液收集器后，统一去机房填写问卷。
+A numbered tag
+A labeled saliva collection kit
 
-1.3 体质检测
+They then proceeded to a computer room to complete questionnaires.
 
-调查员对参与者测量并记录：身高，体重，腰围，臀围，颈围，上臂围，小腿围，体成分，血压（收缩压和舒张压）。
+1.3 Physical Examination
 
-1.4 佩戴瞬感
+Investigators measured and recorded:
 
-调查员依次给参与者佩戴瞬感并激活，激活时间两分钟。同时发放包装袋（装有粪便杯（另加一个5mlEP管）及尿液采集器）和饮食日记表。
-事先根据戒毒所预定好的的食堂菜单打印好饮食日记以及食堂标准记录表。
-最后通知参与者第二天空腹收集尿液及粪便。
+Height and weight
+Waist, hip, neck, upper arm, and calf circumferences
+Body composition
+Blood pressure (systolic and diastolic)
+1.4 Continuous Glucose Monitoring (CGM) Setup
 
-*第二天*：
+Participants were fitted with CGM devices, which were activated (~2 minutes per device).
 
-2.1 样本收集
+Each participant received:
 
-2.2 血液采集
+A sample collection kit (stool container, additional 5 mL EP tube, urine collector)
+A dietary record form
 
-*14天后*：
+Dietary logs and standard cafeteria meal records were prepared in advance based on scheduled menus.
 
-调查员协助参与者摘除瞬感并放置相应包装袋，收取饮食日记及食堂膳食标准称重记录。
+Participants were instructed to collect fasting urine and stool samples the following morning.
 
+Day 2
+2.1 Sample Collection
+2.2 Blood Collection
+Day 14 Follow-up
 
+Investigators:
+
+Assisted participants in removing CGM devices
+Collected:
+Dietary records
+Standardized cafeteria food intake records (weighed)
